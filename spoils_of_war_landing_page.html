@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spoils of War — Work-In-Progress</title>
+  <meta name="description" content="Spoils of War by Jay M.C. — a work-in-progress preview." />
+  <style>
+    :root {
+      --bg: #120d0b;
+      --bg-2: #241713;
+      --leather: #4a2e22;
+      --leather-dark: #321d15;
+      --leather-light: #6a4534;
+      --gold: #d8b679;
+      --gold-soft: #edd8ac;
+      --text: #f4ead8;
+      --muted: #d1c2ab;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      --border: rgba(216, 182, 121, 0.35);
+      --panel: rgba(255, 248, 235, 0.06);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 30%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+    }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 1.25rem;
+    }
+
+    .scene {
+      width: min(100%, 1150px);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    .cover {
+      position: relative;
+      min-height: min(78vh, 900px);
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow);
+      background:
+        radial-gradient(circle at 20% 18%, rgba(255,255,255,0.1), transparent 18%),
+        linear-gradient(145deg, var(--leather-light), var(--leather) 32%, var(--leather-dark) 100%);
+      isolation: isolate;
+      display: grid;
+      place-items: center;
+      padding: clamp(1.5rem, 4vw, 3rem);
+    }
+
+    .cover::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,0.18), transparent 7%, transparent 93%, rgba(255,255,255,0.05)),
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.06) 0.8px, transparent 1px),
+        radial-gradient(circle at 70% 35%, rgba(0,0,0,0.12) 0.8px, transparent 1px),
+        radial-gradient(circle at 35% 75%, rgba(255,255,255,0.04) 0.7px, transparent 1px),
+        radial-gradient(circle at 80% 80%, rgba(0,0,0,0.12) 0.8px, transparent 1px);
+      background-size: auto, 22px 22px, 24px 24px, 20px 20px, 26px 26px;
+      opacity: 0.4;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .cover::after {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(216, 182, 121, 0.18);
+      box-shadow:
+        inset 0 0 0 2px rgba(0,0,0,0.18),
+        inset 0 0 0 10px rgba(255,255,255,0.015);
+      pointer-events: none;
+    }
+
+    .spine-shadow {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: clamp(18px, 3vw, 34px);
+      background: linear-gradient(90deg, rgba(0,0,0,0.38), rgba(0,0,0,0.08), transparent);
+      pointer-events: none;
+    }
+
+    .ornament {
+      position: absolute;
+      inset: clamp(24px, 5vw, 48px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
+    .ornament::before,
+    .ornament::after {
+      content: "✦";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--gold);
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      letter-spacing: 0.2em;
+      text-shadow: 0 0 16px rgba(216, 182, 121, 0.15);
+    }
+
+    .ornament::before { top: 18px; }
+    .ornament::after { bottom: 18px; }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 760px);
+      text-align: center;
+      padding: clamp(1rem, 2vw, 2rem);
+    }
+
+    .eyebrow {
+      margin: 0 0 1rem;
+      color: var(--gold-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      font-size: 0.76rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 8vw, 6.2rem);
+      line-height: 0.98;
+      letter-spacing: 0.03em;
+      color: var(--gold-soft);
+      text-shadow:
+        0 2px 0 rgba(70,40,24,0.8),
+        0 12px 30px rgba(0,0,0,0.3);
+    }
+
+    .subtitle {
+      margin: 1rem 0 0;
+      font-size: clamp(1rem, 2.6vw, 1.4rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .author {
+      margin: 2rem 0 0;
+      font-size: clamp(1rem, 2.8vw, 1.35rem);
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .divider {
+      width: min(240px, 60%);
+      height: 1px;
+      margin: 1.5rem auto;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .disclaimer {
+      margin: 2rem auto 0;
+      max-width: 56ch;
+      padding: 1rem 1.1rem;
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      line-height: 1.7;
+      color: var(--muted);
+      font-size: clamp(0.95rem, 2vw, 1.02rem);
+      backdrop-filter: blur(5px);
+    }
+
+    .actions {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      justify-content: center;
+    }
+
+    .btn {
+      appearance: none;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 0.9rem 1.2rem;
+      font-size: 0.98rem;
+      letter-spacing: 0.04em;
+      transition: transform 140ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #f0ddb7, #d8b679);
+      color: #2f1c12;
+      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .footer-note {
+      text-align: center;
+      color: rgba(244,234,216,0.68);
+      font-size: 0.84rem;
+      letter-spacing: 0.03em;
+      padding-bottom: 0.25rem;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 0.85rem;
+      }
+
+      .cover {
+        min-height: 82svh;
+        border-radius: 22px;
+      }
+
+      .ornament {
+        inset: 18px;
+      }
+
+      .disclaimer {
+        text-align: left;
+      }
+
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="scene">
+    <section class="cover" aria-label="Spoils of War Cover">
+      <div class="spine-shadow" aria-hidden="true"></div>
+      <div class="ornament" aria-hidden="true"></div>
+
+      <div class="content">
+      <br>
+      <br>
+      <br>
+      <br>
+        <p class="eyebrow">Novel Preview</p>
+        <h1>Spoils of War</h1>
+        <p class="subtitle">Work-In-Progress</p>
+        <div class="divider" aria-hidden="true"></div>
+        <p class="author">Jay M.C.</p>
+
+        <div class="disclaimer">
+          This is an unedited work-in-progress preview. Story elements, wording, character details, scenes, and other content may change in the final edited version.
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="#">Read Chapter One</a>
+          <a class="btn btn-secondary" href="https://www.tiktok.com/@jay_m.c_author">Follow me for Updates</a>
+        </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      Follow <a href="https://www.tiktok.com/@jay_m.c_author">@Jay_M.C_Author on TikTok</a>
+    </div>
+  </main>
+</body>
+</html>
